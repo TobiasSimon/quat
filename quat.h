@@ -21,8 +21,6 @@
 #define __QUAT_H__
 
 
-
-
 /* generic 3d vector */
 typedef union
 {
@@ -72,6 +70,9 @@ typedef union
 }
 euler_t;
 
+
+/* copy vector vi to vo */
+void vec3_copy(vec3_t *vo, vec3_t *vi);
 
 /* init orientation quaternion from measurements */
 void quaternion_init(quat_t *quat, const vec3_t *acc, const vec3_t *mag);

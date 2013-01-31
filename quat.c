@@ -17,14 +17,21 @@
 */
 
 
-
-#define FOR_N(v, m) for (int v = 0; v < m; ++v)
-
-
 #include <string.h>
 #include <math.h>
 
 #include "quat.h"
+
+
+#ifndef FOR_N
+#define FOR_N(v, m) for (int v = 0; v < m; ++v)
+#endif /* FOR_N */
+
+
+void vec3_copy(vec3_t *vo, vec3_t *vi)
+{
+   memcpy(vo, vi, sizeof(vec3_t));   
+}
 
 
 void quat_init(quat_t *q, const vec3_t *acc, const vec3_t *mag)
@@ -89,7 +96,7 @@ void quat_rot_vec_self(vec3_t *v, const quat_t *q)
 {
    vec3_t vo;
    quat_rot_vec(&vo, v, q);
-   quat_copy(v, &vo);
+   vec3_copy(v, &vo);
 }
 
 
@@ -206,7 +213,4 @@ float normalize_euler_0_2pi(float a)
       a += (float)(2 * M_PI);
    return a;
 }
-
-
-
 
