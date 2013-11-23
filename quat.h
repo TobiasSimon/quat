@@ -131,6 +131,15 @@ void quat_to_euler(euler_t *e, const quat_t *q);
 /* normalize angle */
 float normalize_euler_0_2pi(float a);
 
+/* Convert quaternion to right handed rotation matrix. m is a pointer
+ * to 16 floats in column major order.
+ */
+void quat_to_rh_rot_matrix(const quat_t *q, float *m);
+
+/* Convert quaternion to left handed rotation matrix. m is a pointer
+ * to 16 floats in column major order.
+ */
+void quat_to_lh_rot_matrix(const quat_t *q, float *m);
 
 #endif /* __QUAT_H__ */
 
