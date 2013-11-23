@@ -398,3 +398,9 @@ vec3_t *vec3_cross(vec3_t *vo, const vec3_t *v1, const vec3_t *v2)
    return vo;
 }
 
+
+float vec3_len2(const vec3_t *v)
+{
+   return v->x * v->x + v->y * v->y + v->z * v->z;
+}
+

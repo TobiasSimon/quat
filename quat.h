@@ -174,5 +174,8 @@ float vec3_dot(const vec3_t *v1, const vec3_t *v2);
 /* vo = v1 x v2 (cross product) */ 
 vec3_t *vec3_cross(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
 
+/* returns square of the magnitude of v */
+float vec3_len2(const vec3_t *v);
+
 #endif /* __QUAT_H__ */
 
