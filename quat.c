@@ -22,6 +22,7 @@
 
 #include "quat.h"
 
+static const float ZERO_TOLERANCE = 0.000001f;
 
 #ifndef FOR_N
 #define FOR_N(v, m) for (int v = 0; v < m; ++v)
@@ -89,6 +90,33 @@ void quat_init_axis(quat_t *q, float x, float y, float z, float a)
 void quat_init_axis_v(quat_t *q, const vec3_t *v, float a)
 {
    quat_init_axis(q, v->x, v->y, v->z, a);
+}
+
+
+void quat_to_axis(const quat_t *q, float *x, float *y, float *z, float *a)
+{
+   /* see: http://www.euclideanspace.com/maths/geometry/rotations
+           /conversions/quaternionToAngle/index.htm */
+   float angle = 2 * acos(q->w);
+   float s = sqrt(1.0 - q->w * q->w);
+   if (s < ZERO_TOLERANCE) {
+      /* if s close to zero then direction of axis not important */
+      *a = 0;
+      *x = 1;
+      *y = 0;
+      *z = 0;
+   } else {
+      *a = angle;
+      *x = q->x / s; /* normalise axis */
+      *y = q->y / s;
+      *z = q->z / s;
+   }
+}
+
+
+void quat_to_axis_v(const quat_t *q, vec3_t *v, float *a)
+{
+   quat_to_axis(q, &v->x, &v->y, &v->z, a);
 }
 
 

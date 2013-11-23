@@ -83,6 +83,12 @@ void quat_init_axis(quat_t *q, float x, float y, float z, float a);
 /* initialize quaternion from axis angle using a vector */
 void quat_init_axis_v(quat_t *q, const vec3_t *v, float a);
 
+/* extract axis and angle from a quaternion */
+void quat_to_axis(const quat_t *q, float *x, float *y, float *z, float *a);
+
+/* extract axis in vector form and angle from a quaternion */
+void quat_to_axis_v(const quat_t *q, vec3_t *v, float *a);
+
 /* rotate vector vi via unit quaternion q and put result into vector vo */
 void quat_rot_vec(vec3_t *vo, const vec3_t *vi, const quat_t *q);
 
