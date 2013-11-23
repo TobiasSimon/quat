@@ -344,3 +344,27 @@ vec3_t *vec3_add_c_self(vec3_t *v1, float x, float y, float z)
         return v1;
 }
 
+
+vec3_t *vec3_sub(vec3_t *vo, const vec3_t *v1, const vec3_t *v2)
+{
+   vo->vec[0] = v1->vec[0] - v2->vec[0];
+   vo->vec[1] = v1->vec[1] - v2->vec[1];
+   vo->vec[2] = v1->vec[2] - v2->vec[2];
+   return vo;
+}
+
+
+vec3_t *vec3_sub_self(vec3_t *v1, const vec3_t *v2)
+{
+   return vec3_sub(v1, v1, v2);
+}
+
+
+vec3_t *vec3_sub_c_self(vec3_t *v1, float x, float y, float z)
+{
+   v1->x -= x;
+   v1->y -= y;
+   v1->z -= z;
+   return v1;
+}
+

@@ -153,5 +153,14 @@ vec3_t *vec3_add_self(vec3_t *v1, const vec3_t *v2);
 /* v1 += [x, y, z] */
 vec3_t *vec3_add_c_self(vec3_t *v1, float x, float y, float z);
 
+/* vo = v1 - v2 */
+vec3_t *vec3_sub(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
+
+/* v1 = v1 - v2 */
+vec3_t *vec3_sub_self(vec3_t *v1, const vec3_t *v2);
+
+/* v1 -= [x, y, z] */
+vec3_t *vec3_sub_c_self(vec3_t *v1, float x, float y, float z);
+
 #endif /* __QUAT_H__ */
 
