@@ -445,5 +445,40 @@ double vec3_dist_c(const vec3_t *v1, float x, float y, float z)
                (v1->y - y) * (v1->y - y) +
                (v1->z - z) * (v1->z - z));
 }
+
+const quat_t identity_quat = { {1.0, 0.0, 0.0, 0.0} };
 	
+/* see http://gamedev.stackexchange.com/questions/15070/orienting-a-model-to-face-a-target */
+/* Calculate the quaternion to rotate from vector u to vector v */
+void quat_from_u2v(quat_t *q, const vec3_t *u, const vec3_t *v, const vec3_t *up)
+{
+   vec3_t un, vn, axis, axisn;
+   float dot;
+   float angle;
+
+   vec3_normalize(&un, u);
+   vec3_normalize(&vn, v);
+   dot = vec3_dot(&un, &vn);
+   if (fabs(dot - -1.0f) < ZERO_TOLERANCE) {
+      /* vector a and b point exactly in the opposite direction
+       * so it is a 180 degrees turn around the up-axis
+       */
+      vec3_t default_up = { { 0, 1, 0} };
+      if (!up)
+         up = &default_up;
+      quat_init_axis(q, up->x, up->y, up->z, M_PI);
+      return;
+   }
+   if (fabs(dot - 1.0f) < ZERO_TOLERANCE) {
+      /* vector a and b point exactly in the same direction
+       * so we return the identity quaternion
+       */
+      *q = identity_quat;
+      return;
+   }
+   angle = acos(dot);
+   vec3_cross(&axis, &un, &vn);
+   vec3_normalize(&axisn, &axis);
+   quat_init_axis(q, axisn.x, axisn.y, axisn.z, angle);
+}
 

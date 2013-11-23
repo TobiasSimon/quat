@@ -192,5 +192,12 @@ double vec3_dist(const vec3_t *v1, const vec3_t *v2);
 /* return distance between v1 and [x, y, z] */
 double vec3_dist_c(const vec3_t *v1, float x, float y, float z);
 
+/* identity quaternion */
+extern const quat_t identity_quat;
+
+/* see http://gamedev.stackexchange.com/questions/15070/orienting-a-model-to-face-a-target */
+/* Calculate the quaternion to rotate from vector u to vector v */
+void quat_from_u2v(quat_t *q, const vec3_t *u, const vec3_t *v, const vec3_t *up);
+
 #endif /* __QUAT_H__ */
 
