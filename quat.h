@@ -202,5 +202,11 @@ void quat_from_u2v(quat_t *q, const vec3_t *u, const vec3_t *v, const vec3_t *up
 /* quaternion dot product q1 . q2 */
 float quat_dot(const quat_t *q1, const quat_t *q2);
 
+/* calculate normalized linear quaternion interpolation */
+quat_t *quat_nlerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t);
+
+/* calculate spherical quaternion interpolation */
+quat_t *quat_slerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t);
+
 #endif /* __QUAT_H__ */
 

@@ -490,3 +490,91 @@ float quat_dot(const quat_t *q1, const quat_t *q2)
 }
 
 
+static quat_t *quat_lerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t)
+{
+   double cosom = quat_dot(qfrom, qto);
+
+   /* qto = qfrom or qto = -qfrom so no rotation to slerp */
+   if (cosom >= 1.0) {
+      quat_copy(qo, qfrom);
+      return qo;
+   }
+
+   /* adjust for shortest path */
+   quat_t to1;
+   if (cosom < 0.0) {
+      to1.x = -qto->x;
+      to1.y = -qto->y;
+      to1.z = -qto->z;
+      to1.w = -qto->w;
+   } else {
+      quat_copy(&to1, qto);
+   }
+
+   double scale0 = 1.0 - t;
+   double scale1 = t;
+
+   /* calculate final values */
+   qo->x = scale0 * qfrom->x + scale1 * to1.x;
+   qo->y = scale0 * qfrom->y + scale1 * to1.y;
+   qo->z = scale0 * qfrom->z + scale1 * to1.z;
+   qo->w = scale0 * qfrom->w + scale1 * to1.w;
+   return qo;
+}
+
+
+quat_t *quat_nlerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t)
+{
+   quat_lerp(qo, qfrom, qto, t); 
+   quat_normalize_self(qo);
+   return qo; 
+}
+
+
+quat_t *quat_slerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t)
+{
+   /* calc cosine */
+   double cosom = quat_dot(qfrom, qto);
+
+   /* qto = qfrom or qto = -qfrom so no rotation to slerp */
+   if (cosom >= 1.0) {
+      quat_copy(qo, qfrom);
+      return qo; 
+   }   
+
+   /* adjust for shortest path */
+   quat_t to1;
+   if (cosom < 0.0) {
+      cosom = -cosom;
+      to1.x = -qto->x;
+      to1.y = -qto->y;
+      to1.z = -qto->z;
+      to1.w = -qto->w;
+   } else {
+      quat_copy(&to1, qto);
+   }
+
+   /* calculate coefficients */
+   double scale0, scale1;
+   if (cosom < 0.99995) {
+      /* standard case (slerp) */
+      double omega = acos(cosom);
+      double sinom = sin(omega);
+      scale0 = sin((1.0 - t) * omega) / sinom;
+      scale1 = sin(t * omega) / sinom;
+   } else {
+      /* "from" and "to" quaternions are very close
+       *  ... so we can do a linear interpolation
+       */
+      scale0 = 1.0 - t;
+      scale1 = t;
+   }
+
+   /* calculate final values */
+   qo->x = scale0 * qfrom->x + scale1 * to1.x;
+   qo->y = scale0 * qfrom->y + scale1 * to1.y;
+   qo->z = scale0 * qfrom->z + scale1 * to1.z;
+   qo->w = scale0 * qfrom->w + scale1 * to1.w;
+   return qo;
+}
+
