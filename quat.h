@@ -199,5 +199,8 @@ extern const quat_t identity_quat;
 /* Calculate the quaternion to rotate from vector u to vector v */
 void quat_from_u2v(quat_t *q, const vec3_t *u, const vec3_t *v, const vec3_t *up);
 
+/* quaternion dot product q1 . q2 */
+float quat_dot(const quat_t *q1, const quat_t *q2);
+
 #endif /* __QUAT_H__ */
 

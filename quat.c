@@ -482,3 +482,11 @@ void quat_from_u2v(quat_t *q, const vec3_t *u, const vec3_t *v, const vec3_t *up
    quat_init_axis(q, axisn.x, axisn.y, axisn.z, angle);
 }
 
+
+float quat_dot(const quat_t *q1, const quat_t *q2)
+{
+   return q1->vec[0] * q2->vec[0] + q1->vec[1] * q2->vec[1] +
+          q1->vec[2] * q2->vec[2] + q1->vec[3] * q2->vec[3];
+}
+
+
