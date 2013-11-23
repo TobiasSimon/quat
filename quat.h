@@ -144,5 +144,14 @@ void quat_to_lh_rot_matrix(const quat_t *q, float *m);
 /* initialize vector */
 void vec3_init(vec3_t *vo, float x, float y, float z);
 
+/* vo = v1 + v2 */
+vec3_t *vec3_add(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
+
+/* v1 = v1 + v2 */
+vec3_t *vec3_add_self(vec3_t *v1, const vec3_t *v2);
+
+/* v1 += [x, y, z] */
+vec3_t *vec3_add_c_self(vec3_t *v1, float x, float y, float z);
+
 #endif /* __QUAT_H__ */
 

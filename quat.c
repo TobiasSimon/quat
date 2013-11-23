@@ -321,3 +321,26 @@ void vec3_init(vec3_t *vo, float x, float y, float z)
 }
 
 
+vec3_t *vec3_add(vec3_t *vo, const vec3_t *v1, const vec3_t *v2)
+{
+   vo->x = v1->x + v2->x;
+   vo->y = v1->y + v2->y;
+   vo->z = v1->z + v2->z;
+   return vo;
+}
+
+
+vec3_t *vec3_add_self(vec3_t *v1, const vec3_t *v2)
+{
+   return vec3_add(v1, v1, v2);
+}
+
+
+vec3_t *vec3_add_c_self(vec3_t *v1, float x, float y, float z)
+{
+        v1->x += x;
+        v1->y += y;
+        v1->z += z;
+        return v1;
+}
+
