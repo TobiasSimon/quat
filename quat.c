@@ -368,3 +368,18 @@ vec3_t *vec3_sub_c_self(vec3_t *v1, float x, float y, float z)
    return v1;
 }
 
+
+vec3_t *vec3_mul(vec3_t *vo, const vec3_t *vi, float scalar)
+{
+   vo->vec[0] = vi->vec[0] * scalar;
+   vo->vec[1] = vi->vec[1] * scalar;
+   vo->vec[2] = vi->vec[2] * scalar;
+   return vo;
+}
+
+
+vec3_t *vec3_mul_self(vec3_t *vi, float scalar)
+{
+   return vec3_mul(vi, vi, scalar);
+}
+
