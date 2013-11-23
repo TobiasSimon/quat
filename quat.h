@@ -168,5 +168,11 @@ vec3_t *vec3_mul(vec3_t *vo, const vec3_t *vi, float scalar);
 /* vi *= scalar */
 vec3_t *vec3_mul_self(vec3_t *vi, float scalar);
 
+/* return dot product of v1 and v2 */
+float vec3_dot(const vec3_t *v1, const vec3_t *v2);
+
+/* vo = v1 x v2 (cross product) */ 
+vec3_t *vec3_cross(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
+
 #endif /* __QUAT_H__ */
 

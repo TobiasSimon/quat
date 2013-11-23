@@ -383,3 +383,18 @@ vec3_t *vec3_mul_self(vec3_t *vi, float scalar)
    return vec3_mul(vi, vi, scalar);
 }
 
+
+float vec3_dot(const vec3_t *v1, const vec3_t *v2)
+{
+   return v1->vec[0] * v2->vec[0] + v1->vec[1] * v2->vec[1] + v1->vec[2] * v2->vec[2];
+}
+
+
+vec3_t *vec3_cross(vec3_t *vo, const vec3_t *v1, const vec3_t *v2)
+{
+   vo->vec[0] = v1->vec[1]*v2->vec[2] - v1->vec[2]*v2->vec[1];
+   vo->vec[1] = v1->vec[2]*v2->vec[0] - v1->vec[0]*v2->vec[2];
+   vo->vec[2] = v1->vec[0]*v2->vec[1] - v1->vec[1]*v2->vec[0];
+   return vo;
+}
+
