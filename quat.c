@@ -312,3 +312,12 @@ void quat_to_lh_rot_matrix(const quat_t *q, float *m)
    m[15] = 1.0f;
 }
 
+
+void vec3_init(vec3_t *vo, float x, float y, float z)
+{
+   vo->x = x;
+   vo->y = y;
+   vo->z = z;
+}
+
+

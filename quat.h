@@ -141,5 +141,8 @@ void quat_to_rh_rot_matrix(const quat_t *q, float *m);
  */
 void quat_to_lh_rot_matrix(const quat_t *q, float *m);
 
+/* initialize vector */
+void vec3_init(vec3_t *vo, float x, float y, float z);
+
 #endif /* __QUAT_H__ */
 
