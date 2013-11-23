@@ -177,5 +177,8 @@ vec3_t *vec3_cross(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
 /* returns square of the magnitude of v */
 float vec3_len2(const vec3_t *v);
 
+/* vo = normalized vi */
+vec3_t *vec3_normalize(vec3_t *vo, const vec3_t *vi);
+
 #endif /* __QUAT_H__ */
 

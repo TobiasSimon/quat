@@ -404,3 +404,13 @@ float vec3_len2(const vec3_t *v)
    return v->x * v->x + v->y * v->y + v->z * v->z;
 }
 
+
+vec3_t *vec3_normalize(vec3_t *vo, const vec3_t *vi)
+{
+   float len = sqrt(vec3_len2(vi));
+   vo->x = vi->x / len;
+   vo->y = vi->y / len;
+   vo->z = vi->z / len;
+   return vo;
+}
+
