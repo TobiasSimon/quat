@@ -430,3 +430,20 @@ vec3_t *vec3_rot_axis_self(vec3_t *vo, float x, float y, float z, float angle)
    return vo;
 }
 
+
+double vec3_dist(const vec3_t *v1, const vec3_t *v2)
+{
+   return sqrt((v1->x - v2->x) * (v1->x - v2->x) +
+               (v1->y - v2->y) * (v1->y - v2->y) +
+               (v1->z - v2->z) * (v1->z - v2->z));
+}
+
+
+double vec3_dist_c(const vec3_t *v1, float x, float y, float z)
+{
+   return sqrt((v1->x - x) * (v1->x - x) +
+               (v1->y - y) * (v1->y - y) +
+               (v1->z - z) * (v1->z - z));
+}
+	
+

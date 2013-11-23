@@ -186,5 +186,11 @@ vec3_t *vec3_rot_axis(vec3_t *vo, vec3_t *vi, float x, float y, float z, float a
 /* vec3 rotate self by axis and angle */
 vec3_t *vec3_rot_axis_self(vec3_t *vo, float x, float y, float z, float angle);
 
+/* return distance between v1 and v2 */
+double vec3_dist(const vec3_t *v1, const vec3_t *v2);
+
+/* return distance between v1 and [x, y, z] */
+double vec3_dist_c(const vec3_t *v1, float x, float y, float z);
+
 #endif /* __QUAT_H__ */
 
