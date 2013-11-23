@@ -414,3 +414,19 @@ vec3_t *vec3_normalize(vec3_t *vo, const vec3_t *vi)
    return vo;
 }
 
+
+vec3_t *vec3_rot_axis(vec3_t *vo, vec3_t *vi, float x, float y, float z, float angle)
+{
+   vec3_copy(vo, vi);
+   return vec3_rot_axis_self(vo, x, y, z, angle);
+}
+
+
+vec3_t *vec3_rot_axis_self(vec3_t *vo, float x, float y, float z, float angle)
+{
+   quat_t rotate;
+   quat_init_axis(&rotate, x, y, z, angle);
+   quat_rot_vec_self(vo, &rotate);
+   return vo;
+}
+

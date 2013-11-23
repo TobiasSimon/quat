@@ -180,5 +180,11 @@ float vec3_len2(const vec3_t *v);
 /* vo = normalized vi */
 vec3_t *vec3_normalize(vec3_t *vo, const vec3_t *vi);
 
+/* vec3 rotate by axis and angle */
+vec3_t *vec3_rot_axis(vec3_t *vo, vec3_t *vi, float x, float y, float z, float angle);
+
+/* vec3 rotate self by axis and angle */
+vec3_t *vec3_rot_axis_self(vec3_t *vo, float x, float y, float z, float angle);
+
 #endif /* __QUAT_H__ */
 
