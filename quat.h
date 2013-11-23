@@ -208,5 +208,17 @@ quat_t *quat_nlerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t);
 /* calculate spherical quaternion interpolation */
 quat_t *quat_slerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t);
 
+/* Apply incremental yaw, pitch and roll relative to the quaternion.
+ * For example, if the quaternion represents an orientation of a ship,
+ * this will apply yaw/pitch/roll *in the ship's local coord system to the
+ * orientation.
+ */
+quat_t *quat_apply_relative_yaw_pitch_roll(quat_t *q,
+                                        double yaw, double pitch, double roll);
+
+/* Apply incremental yaw and pitch relative to the quaternion.
+ * Yaw is applied to world axis so no roll will accumulate */
+quat_t *quat_apply_relative_yaw_pitch(quat_t *q, double yaw, double pitch);
+
 #endif /* __QUAT_H__ */
 

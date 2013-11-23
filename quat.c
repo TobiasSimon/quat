@@ -578,3 +578,45 @@ quat_t *quat_slerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t)
    return qo;
 }
 
+
+quat_t *quat_apply_relative_yaw_pitch_roll(quat_t *q,
+                                        double yaw, double pitch, double roll)
+{
+        quat_t qyaw, qpitch, qroll, qrot, q1, q2, q3, q4;
+
+        /* calculate amount of yaw to impart this iteration... */
+        quat_init_axis(&qyaw, 0.0, 1.0, 0.0, yaw);
+        /* Calculate amount of pitch to impart this iteration... */
+        quat_init_axis(&qpitch, 0.0, 0.0, 1.0, pitch);
+        /* Calculate amount of roll to impart this iteration... */
+        quat_init_axis(&qroll, 1.0, 0.0, 0.0, roll);
+        /* Combine pitch, roll and yaw */
+        quat_mul(&q1, &qyaw, &qpitch);
+        quat_mul(&qrot, &q1, &qroll);
+
+        /* Convert rotation to local coordinate system */
+        quat_mul(&q1, q, &qrot);
+        quat_conj(&q2, q);
+        quat_mul(&q3, &q1, &q2);
+        /* Apply to local orientation */
+        quat_mul(&q4, &q3, q);
+        quat_normalize_self(&q4);
+        *q = q4;
+        return q;
+}
+
+
+quat_t *quat_apply_relative_yaw_pitch(quat_t *q, double yaw, double pitch)
+{
+        quat_t qyaw, qpitch, q1;
+
+        /* calculate amount of yaw to impart this iteration... */
+        quat_init_axis(&qyaw, 0.0, 1.0, 0.0, yaw);
+        /* Calculate amount of pitch to impart this iteration... */
+        quat_init_axis(&qpitch, 0.0, 0.0, 1.0, pitch);
+
+        quat_mul(&q1, &qyaw, q);
+        quat_mul(q, &q1, &qpitch);
+        return q;
+}
+
