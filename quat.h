@@ -220,5 +220,9 @@ quat_t *quat_apply_relative_yaw_pitch_roll(quat_t *q,
  * Yaw is applied to world axis so no roll will accumulate */
 quat_t *quat_apply_relative_yaw_pitch(quat_t *q, double yaw, double pitch);
 
+/* decompose a quaternion into a rotation (swing) perpendicular to v1 and a rotation (twist) around v1 */
+void quat_decompose_twist_swing(const quat_t *q, const vec3_t *v1, quat_t *twist, quat_t *swing);
+void quat_decompose_swing_twist(const quat_t *q, const vec3_t *v1, quat_t *swing, quat_t *twist);
+
 #endif /* __QUAT_H__ */
 

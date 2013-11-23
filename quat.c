@@ -620,3 +620,25 @@ quat_t *quat_apply_relative_yaw_pitch(quat_t *q, double yaw, double pitch)
         return q;
 }
 
+void quat_decompose_twist_swing(const quat_t *q, const vec3_t *v1, quat_t *twist, quat_t *swing)
+{
+	vec3_t v2;
+	quat_rot_vec(&v2, v1, q);
+
+	quat_from_u2v(swing, v1, &v2, 0);
+	quat_t swing_conj;
+	quat_conj(&swing_conj, swing);
+	quat_mul(twist, q, &swing_conj);
+}
+
+void quat_decompose_swing_twist(const quat_t *q, const vec3_t *v1, quat_t *swing, quat_t *twist)
+{
+	vec3_t v2;
+	quat_rot_vec(&v2, v1, q);
+
+	quat_from_u2v(swing, v1, &v2, 0);
+	quat_t swing_conj;
+	quat_conj(&swing_conj, swing);
+	quat_mul(twist, &swing_conj, q);
+}
+
