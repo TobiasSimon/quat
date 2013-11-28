@@ -83,6 +83,12 @@ void quat_init_axis(quat_t *q, float x, float y, float z, float a);
 /* initialize quaternion from axis angle using a vector */
 void quat_init_axis_v(quat_t *q, const vec3_t *v, float a);
 
+/* extract axis and angle from a quaternion */
+void quat_to_axis(const quat_t *q, float *x, float *y, float *z, float *a);
+
+/* extract axis in vector form and angle from a quaternion */
+void quat_to_axis_v(const quat_t *q, vec3_t *v, float *a);
+
 /* rotate vector vi via unit quaternion q and put result into vector vo */
 void quat_rot_vec(vec3_t *vo, const vec3_t *vi, const quat_t *q);
 
@@ -125,6 +131,98 @@ void quat_to_euler(euler_t *e, const quat_t *q);
 /* normalize angle */
 float normalize_euler_0_2pi(float a);
 
+/* Convert quaternion to right handed rotation matrix. m is a pointer
+ * to 16 floats in column major order.
+ */
+void quat_to_rh_rot_matrix(const quat_t *q, float *m);
+
+/* Convert quaternion to left handed rotation matrix. m is a pointer
+ * to 16 floats in column major order.
+ */
+void quat_to_lh_rot_matrix(const quat_t *q, float *m);
+
+/* initialize vector */
+void vec3_init(vec3_t *vo, float x, float y, float z);
+
+/* vo = v1 + v2 */
+vec3_t *vec3_add(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
+
+/* v1 = v1 + v2 */
+vec3_t *vec3_add_self(vec3_t *v1, const vec3_t *v2);
+
+/* v1 += [x, y, z] */
+vec3_t *vec3_add_c_self(vec3_t *v1, float x, float y, float z);
+
+/* vo = v1 - v2 */
+vec3_t *vec3_sub(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
+
+/* v1 = v1 - v2 */
+vec3_t *vec3_sub_self(vec3_t *v1, const vec3_t *v2);
+
+/* v1 -= [x, y, z] */
+vec3_t *vec3_sub_c_self(vec3_t *v1, float x, float y, float z);
+
+/* vo = vi * scalar */
+vec3_t *vec3_mul(vec3_t *vo, const vec3_t *vi, float scalar);
+
+/* vi *= scalar */
+vec3_t *vec3_mul_self(vec3_t *vi, float scalar);
+
+/* return dot product of v1 and v2 */
+float vec3_dot(const vec3_t *v1, const vec3_t *v2);
+
+/* vo = v1 x v2 (cross product) */ 
+vec3_t *vec3_cross(vec3_t *vo, const vec3_t *v1, const vec3_t *v2);
+
+/* returns square of the magnitude of v */
+float vec3_len2(const vec3_t *v);
+
+/* vo = normalized vi */
+vec3_t *vec3_normalize(vec3_t *vo, const vec3_t *vi);
+
+/* vec3 rotate by axis and angle */
+vec3_t *vec3_rot_axis(vec3_t *vo, vec3_t *vi, float x, float y, float z, float angle);
+
+/* vec3 rotate self by axis and angle */
+vec3_t *vec3_rot_axis_self(vec3_t *vo, float x, float y, float z, float angle);
+
+/* return distance between v1 and v2 */
+double vec3_dist(const vec3_t *v1, const vec3_t *v2);
+
+/* return distance between v1 and [x, y, z] */
+double vec3_dist_c(const vec3_t *v1, float x, float y, float z);
+
+/* identity quaternion */
+extern const quat_t identity_quat;
+
+/* see http://gamedev.stackexchange.com/questions/15070/orienting-a-model-to-face-a-target */
+/* Calculate the quaternion to rotate from vector u to vector v */
+void quat_from_u2v(quat_t *q, const vec3_t *u, const vec3_t *v, const vec3_t *up);
+
+/* quaternion dot product q1 . q2 */
+float quat_dot(const quat_t *q1, const quat_t *q2);
+
+/* calculate normalized linear quaternion interpolation */
+quat_t *quat_nlerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t);
+
+/* calculate spherical quaternion interpolation */
+quat_t *quat_slerp(quat_t *qo, const quat_t *qfrom, const quat_t *qto, float t);
+
+/* Apply incremental yaw, pitch and roll relative to the quaternion.
+ * For example, if the quaternion represents an orientation of a ship,
+ * this will apply yaw/pitch/roll *in the ship's local coord system to the
+ * orientation.
+ */
+quat_t *quat_apply_relative_yaw_pitch_roll(quat_t *q,
+                                        double yaw, double pitch, double roll);
+
+/* Apply incremental yaw and pitch relative to the quaternion.
+ * Yaw is applied to world axis so no roll will accumulate */
+quat_t *quat_apply_relative_yaw_pitch(quat_t *q, double yaw, double pitch);
+
+/* decompose a quaternion into a rotation (swing) perpendicular to v1 and a rotation (twist) around v1 */
+void quat_decompose_twist_swing(const quat_t *q, const vec3_t *v1, quat_t *twist, quat_t *swing);
+void quat_decompose_swing_twist(const quat_t *q, const vec3_t *v1, quat_t *swing, quat_t *twist);
 
 #endif /* __QUAT_H__ */
 
