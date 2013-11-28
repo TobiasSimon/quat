@@ -2,7 +2,7 @@
 /*
    quaternion library - implementation
 
-   Copyright (C) 2013 Tobias Simon
+   Copyright (C) 2013 Tobias Simon and Stephen M. Cameron
    most of the code was stolen from the Internet
 
    This program is free software; you can redistribute it and/or modify
